@@ -1,13 +1,26 @@
 Sitecore-Deployment-Helpers
-===========================
+========================
 
-Small deployment helper pages for such things as: installing packages, publishing, etc.
+First things first - this has been forked from Alexander Doroshenko's repository (https://github.com/adoprog/Sitecore-Deployment-Helpers)
 
-__InstallModules.aspx__ will install modules from %datafolder%/packages. Modules and order are specified in a query string parameter called 'modules'
+The changes I have done to the original helper pages are:
 
-__InstallPackages.aspx__ will install all packages found under /sitecore/admin/packages folder.
+ **InstallPackages.aspx** - will install all Sitecore update packages (*.update) present in /sitecore/admin/packages folder
 
-__Publish.aspx__ will publish everything from master to the web database.
+ - Support for running post installation steps that may be present in
+   the package
+ - Installing Sitecore security accounts in the package
+   (roles and users)
+ - Disabling indexing during installation to speed up
+   the installation
+ - Clean up of temporary folders created in the web
+   root for the Sitecore items present in the package
 
-Got more deployment helpers? Pull request them.
-Just have some ideas? - Share them :)
+**InstallModules.aspx** - will install all modules (*.zip) from %datafolder%/packages folder
+
+ - Disabling indexing during installation to speed up
+   the installation
+
+**Publish.aspx** - will publish content from master to the web database
+
+ - Takes a query string parameter (mode) indicating the type of publish to be performed (mode=full -> Republish, mode=smart -> Smart Publish, Incremental for everything else)
